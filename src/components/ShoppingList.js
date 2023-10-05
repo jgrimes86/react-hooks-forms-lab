@@ -5,21 +5,21 @@ import Item from "./Item";
 
 function ShoppingList({ items }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [filterSearch, setFilterSearch] = useState("Search...")
+  const [filterSearch, setFilterSearch] = useState("")
 
   function handleCategoryChange(event) {
     setSelectedCategory(event.target.value);
   }
 
   function handleFilterSearch(event) {
-    setFilterSearch(event.target.value)
-    // if (items.find((item) => {
-    //   if (item.category.toLowerCase() === event.target.value.toLowerCase()) {return true}
-    // })) {
-    //   setItems(event.target.value)
-    // } else {setItems(itemData)}
+    setFilterSearch(event.target.value);
+    let input = event.target.value;
+    const sanitizedInput = input[0].toUpperCase() + input.slice(1).toLowerCase();
+    if (items.find((item) => {return sanitizedInput === item.category})) {
+      setSelectedCategory(sanitizedInput)
+    } else {}
   }
-  
+
   const itemsToDisplay = items.filter((item) => {
     if (selectedCategory === "All") return true;
 
